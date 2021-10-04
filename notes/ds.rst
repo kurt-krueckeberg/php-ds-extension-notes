@@ -31,13 +31,13 @@ Summary of Built\ |ndash|\ in PHP Interfaces
 
 Understanding the built\ |ndash|\ in PHP interfaces helps in understanding the ``\Ds`` interfaces and classes. 
 
-Traversable Interface
-~~~~~~~~~~~~~~~~~~~~~
+Traversable Interface Synopsis
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-To enable iteration in a ``foreach`` loop of a user\ |ndash|\ defined class, you must support the ``\Traversable`` interface, but you cannot implement ``\Traverable`` directly in user\ |ndash|\ defined classes directly becasue ``\Traversable`` is a internal PHP
-engine interface. Instead you must implement either ``IteratorAggregate`` or ``Iterator``. 
+To iterate a  a user\ |ndash|\ defined class with ``foreach``, you must support the ``\Traversable`` interface, but since you cannot implement ``\Traverable`` directly in user\ |ndash|\ defined classes becasue ``\Traversable`` is a internal PHP
+engine interface, you must instead implement either ``IteratorAggregate`` or ``Iterator``. 
 
-.. note:: Since the Data Structures extension extends the PHP engine itself, the preceding comments don't apply to it; they only apply to user\ |ndash|\ defined classes.
+.. note:: The Data Structures extension extends the PHP engine itself, so the preceding comments don't apply to it. They only apply to user\ |ndash|\ defined classes.
  
 Iterator Interface Synopsis 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -70,8 +70,8 @@ a ``foreach`` loop should end because is "past" the last element.
 
 A ``foreach`` loop invokes ``Iterator`` methods in this order:
 
-1. Before the first iteration of the loop, Iterator::rewind() is called.
-2. Before each iteration of the loop, Iterator::valid() is called.
+1. Before the first iteration of the loop, ``Iterator::rewind()`` is called.
+2. Before each iteration of the loop, ``Iterator::valid()`` is called.
 3. If ``Iterator::valid()`` returns false, the loop is terminated; otherwise, it continues and ``Iterator::valid()`` and ``Iterator::key()`` are called.
 4. The loop body is evaluated.
 5. After each iteration of the loop, ``Iterator::next()`` is called and we go to step #2.
