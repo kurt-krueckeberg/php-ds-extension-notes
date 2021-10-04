@@ -39,13 +39,10 @@ engine interface. Instead you must implement either ``IteratorAggregate`` or ``I
 
 .. note:: Since the Data Structures extension extends the PHP engine itself, the preceding comments don't apply to it; they only apply to user\ |ndash|\ defined classes.
  
-Iterator Interface
-~~~~~~~~~~~~~~~~~~
+Iterator Interface Synopsis 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ``Iterator`` is the interface for external iterators or objects that can be iterated themselves internally.
-
-Iterator Interface synopsis 
-+++++++++++++++++++++++++++
 
 .. code-block:: php
     
@@ -96,11 +93,8 @@ This is roughly equivalent to:
             $it->next();
         }
 
-Countable Iterface
-~~~~~~~~~~~~~~~~~~
-
-Countable Interface synopsis
-++++++++++++++++++++++++++++
+Countable Interface Synopsis
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. code-block:: php
 
@@ -110,15 +104,12 @@ Countable Interface synopsis
         public count(): int
     }
 
-``Countable::count`` returns the number of elements in an object.
-
-JSONSerializable 
-~~~~~~~~~~~~~~~~~
-
-Objects implementing ``JsonSerializable`` can customize their JSON representation when encoded with ``json_encode()``.
+This interfaces allows an object instance to be use with PHP's ``count($my_object)`` method.  Implement ``Countable::count`` so it returns the number of elements in the object.
 
 JSONSerializable  Interface synopsis
 ++++++++++++++++++++++++++++++++++++
+
+Objects implementing ``JsonSerializable`` can customize their JSON representation when encoded with ``json_encode()``.
 
 .. code-block:: php
 
