@@ -156,25 +156,27 @@ a <code class="docutils literal notranslate"><span class="pre">foreach</span></c
 <h3><code class="docutils literal notranslate"><span class="pre">Collection</span></code> interface synopsis:<a class="headerlink" href="#collection-interface-synopsis" title="Permalink to this headline">¶</a></h3>
 <p>The Collection interface covers functionality common to all the data structures in this library. It guarantees that all structures are <em>traversable</em>, <em>countable</em>, and can be converted to json using <em>json_encode()</em>, and it thereby
 provides support for <em>foreach</em>, <em>echo</em>, <em>count</em>, <em>print_r</em>, <em>var_dump</em>, <em>serialize</em>, <em>json_encode</em>, and <em>clone</em>.</p>
-<div class="highlight-php notranslate"><div class="highlight"><pre><span></span><span class="x">class Ds\Collection implements Traversable, Countable, JsonSerializable {</span>
-<span class="x">    /* Methods */</span>
-<span class="x">    abstract public clear(): void</span>
-<span class="x">    abstract public copy(): Ds\Collection</span>
-<span class="x">    abstract public isEmpty(): bool</span>
-<span class="x">    abstract public toArray(): array</span>
-<span class="x">}</span>
+<div class="highlight-php notranslate"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span>
+<span class="k">class</span> <span class="nc">Ds\Collection</span> <span class="k">implements</span> <span class="nx">Traversable</span><span class="p">,</span> <span class="nx">Countable</span><span class="p">,</span> <span class="nx">JsonSerializable</span> <span class="p">{</span>
+    <span class="cm">/* Methods */</span>
+    <span class="k">abstract</span> <span class="k">public</span> <span class="nx">clear</span><span class="p">()</span><span class="o">:</span> <span class="nx">void</span>
+    <span class="k">abstract</span> <span class="k">public</span> <span class="nb">copy</span><span class="p">()</span><span class="o">:</span> <span class="nx">Ds\Collection</span>
+    <span class="k">abstract</span> <span class="k">public</span> <span class="nx">isEmpty</span><span class="p">()</span><span class="o">:</span> <span class="nx">bool</span>
+    <span class="k">abstract</span> <span class="k">public</span> <span class="nx">toArray</span><span class="p">()</span><span class="o">:</span> <span class="k">array</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <p>The PHP <strong>clone</strong> reserved word invokes an object’s “copy constructor”, which can be implemented through a custom <code class="docutils literal notranslate"><span class="pre">__clone()</span> <span class="pre">:</span> <span class="pre">void</span></code>. See PHP <a class="reference external" href="https://www.php.net/manual/en/language.oop5.cloning.php">Object Cloing</a>.</p>
 </div>
 <div class="section" id="method-descriptions">
 <h3>Method Descriptions<a class="headerlink" href="#method-descriptions" title="Permalink to this headline">¶</a></h3>
-<blockquote>
-<div><p>DsCollection::clear — Removes all values
-DsCollection::copy — Returns a shallow copy of the collection
-DsCollection::isEmpty — Returns whether the collection is empty
-DsCollection::toArray — Converts the collection to an array</p>
-</div></blockquote>
+<div class="highlight-php notranslate"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span>
+<span class="nx">Ds\Collection</span><span class="o">::</span><span class="na">clear</span> <span class="nx">—</span> <span class="nx">Removes</span> <span class="nx">all</span> <span class="nx">values</span>
+<span class="nx">Ds\Collection</span><span class="o">::</span><span class="na">copy</span> <span class="nx">—</span> <span class="nx">Returns</span> <span class="nx">a</span> <span class="nx">shallow</span> <span class="nb">copy</span> <span class="nx">of</span> <span class="nx">the</span> <span class="nx">collection</span>
+<span class="nx">Ds\Collection</span><span class="o">::</span><span class="na">isEmpty</span> <span class="nx">—</span> <span class="nx">Returns</span> <span class="nx">whether</span> <span class="nx">the</span> <span class="nx">collection</span> <span class="nx">is</span> <span class="k">empty</span>
+<span class="nx">Ds\Collection</span><span class="o">::</span><span class="na">toArray</span> <span class="nx">—</span> <span class="nx">Converts</span> <span class="nx">the</span> <span class="nx">collection</span> <span class="nx">to</span> <span class="nx">an</span> <span class="k">array</span>
+</pre></div>
+</div>
 </div>
 <div class="section" id="example-code">
 <h3>Example Code<a class="headerlink" href="#example-code" title="Permalink to this headline">¶</a></h3>

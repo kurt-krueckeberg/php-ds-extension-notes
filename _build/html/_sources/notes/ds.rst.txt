@@ -144,6 +144,7 @@ provides support for *foreach*, *echo*, *count*, *print\_r*, *var\_dump*, *seria
 
 .. code-block:: php
 
+    <?php
     class Ds\Collection implements Traversable, Countable, JsonSerializable {
         /* Methods */
         abstract public clear(): void
@@ -157,6 +158,9 @@ The PHP **clone** reserved word invokes an object's "copy constructor", which ca
 Method Descriptions
 ~~~~~~~~~~~~~~~~~~~
     
+.. code-block:: php
+
+    <?php
     Ds\Collection::clear — Removes all values
     Ds\Collection::copy — Returns a shallow copy of the collection
     Ds\Collection::isEmpty — Returns whether the collection is empty

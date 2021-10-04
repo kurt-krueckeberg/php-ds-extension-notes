@@ -161,10 +161,10 @@ Method Descriptions
 .. code-block:: php
 
     <?php
-    Ds\Collection::clear — Removes all values
-    Ds\Collection::copy — Returns a shallow copy of the collection
-    Ds\Collection::isEmpty — Returns whether the collection is empty
-    Ds\Collection::toArray — Converts the collection to an array
+    Ds\Collection::clear() — Removes all values
+    Ds\Collection::copy() — Returns a shallow copy of the collection
+    Ds\Collection::isEmpty() — Returns whether the collection is empty
+    Ds\Collection::toArray() — Converts the collection to an array
 
 Example Code
 ~~~~~~~~~~~~
