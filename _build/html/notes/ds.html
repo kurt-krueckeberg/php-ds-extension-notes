@@ -140,10 +140,11 @@ a <code class="docutils literal notranslate"><span class="pre">foreach</span></c
 </div>
 <div class="section" id="ds-interfaces">
 <h2>Ds Interfaces<a class="headerlink" href="#ds-interfaces" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="collection-interface-synopsis">
-<h3><code class="docutils literal notranslate"><span class="pre">Collection</span></code> interface synopsis:<a class="headerlink" href="#collection-interface-synopsis" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="ds-collection-interface">
+<h3><code class="docutils literal notranslate"><span class="pre">Ds\Collection</span></code> interface<a class="headerlink" href="#ds-collection-interface" title="Permalink to this headline">¶</a></h3>
 <p>The Collection interface covers functionality common to all the data structures in this library. It guarantees that all structures are <em>traversable</em>, <em>countable</em>, and can be converted to json using <em>json_encode()</em>, and it thereby
 provides support for <em>foreach</em>, <em>echo</em>, <em>count</em>, <em>print_r</em>, <em>var_dump</em>, <em>serialize</em>, <em>json_encode</em>, and <em>clone</em>.</p>
+<p>The PHP <strong>clone</strong> reserved word invokes an object’s “copy constructor”, which can be implemented through a custom <code class="docutils literal notranslate"><span class="pre">__clone()</span> <span class="pre">:</span> <span class="pre">void</span></code>. See PHP <a class="reference external" href="https://www.php.net/manual/en/language.oop5.cloning.php">Object Cloing</a>.</p>
 <div class="highlight-php notranslate"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span>
 <span class="k">class</span> <span class="nc">Ds\Collection</span> <span class="k">implements</span> <span class="nx">Traversable</span><span class="p">,</span> <span class="nx">Countable</span><span class="p">,</span> <span class="nx">JsonSerializable</span> <span class="p">{</span>
     <span class="cm">/* Methods */</span>
@@ -154,7 +155,6 @@ provides support for <em>foreach</em>, <em>echo</em>, <em>count</em>, <em>print_
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>The PHP <strong>clone</strong> reserved word invokes an object’s “copy constructor”, which can be implemented through a custom <code class="docutils literal notranslate"><span class="pre">__clone()</span> <span class="pre">:</span> <span class="pre">void</span></code>. See PHP <a class="reference external" href="https://www.php.net/manual/en/language.oop5.cloning.php">Object Cloing</a>.</p>
 </div>
 <div class="section" id="method-descriptions">
 <h3>Method Descriptions<a class="headerlink" href="#method-descriptions" title="Permalink to this headline">¶</a></h3>
@@ -166,8 +166,8 @@ provides support for <em>foreach</em>, <em>echo</em>, <em>count</em>, <em>print_
 </pre></div>
 </div>
 </div>
-<div class="section" id="dsvector-demonstration-code">
-<h3>DsVector Demonstration Code<a class="headerlink" href="#dsvector-demonstration-code" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="dsvector-demonstration-of-its-dscollection-interface">
+<h3>DsVector Demonstration of its DsCollection interface<a class="headerlink" href="#dsvector-demonstration-of-its-dscollection-interface" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-php notranslate"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span>
 <span class="nv">$collection_a</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">\Ds\Vector</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]);</span>
 <span class="nv">$collection_b</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">\Ds\Vector</span><span class="p">();</span>
@@ -182,23 +182,17 @@ provides support for <em>foreach</em>, <em>echo</em>, <em>count</em>, <em>print_
 </pre></div>
 </div>
 <pre>
-   /*
        object(Ds\Vector)[1]
        public 0 => int 1
        public 1 => int 2
        public 2 => int 3
 
        object(Ds\Vector)[2]
-   */
 
-  //json_encode
-   /*
-   string '[1,2,3]
-   */
 
-   /* count($collection_a)
-    3
-   */
+   string '[1,2,3]   //json_encode
+
+   3                 // count($collection_a)
 </pre><div class="highlight-php notranslate"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span>
  <span class="c1">// serialize</span>
  <span class="nb">var_dump</span><span class="p">(</span><span class="nb">serialize</span><span class="p">(</span><span class="nv">$collection_a</span><span class="p">));</span>
@@ -297,6 +291,26 @@ provides support for <em>foreach</em>, <em>echo</em>, <em>count</em>, <em>print_
 </pre></div>
 </div>
 </div>
+<div class="section" id="ds-hashable-interface">
+<h3><code class="docutils literal notranslate"><span class="pre">Ds\Hashable</span></code> interface<a class="headerlink" href="#ds-hashable-interface" title="Permalink to this headline">¶</a></h3>
+<p>Hashable is an interface which __allows objects to be used as <a href="#id3"><span class="problematic" id="id4">keys__</span></a>. It’s an alternative to <code class="docutils literal notranslate"><span class="pre">spl_object_hash()</span></code>, which determines an object’s hash based on its handle: this means that two objects that are considered equal by an implicit definition would not treated as equal because they are not the same instance.</p>
+<p><code class="docutils literal notranslate"><span class="pre">hash($my_object)</span></code> is used to return a scalar hash value to be used as the object’s hash value, which determines where it goes in the hash table. While this value does not have to be unique, objects which are equal must have the same hash value.</p>
+<p><code class="docutils literal notranslate"><span class="pre">$my_object-&gt;hash()</span></code> returns a scalar hash key to determines where <code class="docutils literal notranslate"><span class="pre">$my_object</span></code> should go in the hash table ( WHICH hash table? The Ds classes that are implemented at a has table? OR: Must client’s of Ds ‘hashable’ classes only insert user objects instances that umplement <cite>DSHashable</cite>?).
+While this value does not have to be unique, objects which are equal must have the same hash value.</p>
+<p><code class="docutils literal notranslate"><span class="pre">$myobject-&gt;equals($other_object)</span></code> is used to determine if two objects are equal. It’s guaranteed that the comparing object will be an instance of the same class as the argument.</p>
+<blockquote>
+<div><p>&lt;?php
+class DsHashable {</p>
+<blockquote>
+<div><p>/* Methods <a href="#id1"><span class="problematic" id="id2">*</span></a>/
+abstract public equals(object $obj): bool
+abstract public hash(): mixed</p>
+</div></blockquote>
+<p>}</p>
+<p>DsHashable::equals — Determines whether an object is equal to the current instance
+DsHashable::hash — Returns a scalar value to be used as a hash value</p>
+</div></blockquote>
+</div>
 </div>
 </div>
 
@@ -325,9 +339,10 @@ provides support for <em>foreach</em>, <em>echo</em>, <em>count</em>, <em>print_
 </ul>
 </li>
 <li><a class="reference internal" href="#ds-interfaces">Ds Interfaces</a><ul>
-<li><a class="reference internal" href="#collection-interface-synopsis"><code class="docutils literal notranslate"><span class="pre">Collection</span></code> interface synopsis:</a></li>
+<li><a class="reference internal" href="#ds-collection-interface"><code class="docutils literal notranslate"><span class="pre">Ds\Collection</span></code> interface</a></li>
 <li><a class="reference internal" href="#method-descriptions">Method Descriptions</a></li>
-<li><a class="reference internal" href="#dsvector-demonstration-code">DsVector Demonstration Code</a></li>
+<li><a class="reference internal" href="#dsvector-demonstration-of-its-dscollection-interface">DsVector Demonstration of its DsCollection interface</a></li>
+<li><a class="reference internal" href="#ds-hashable-interface"><code class="docutils literal notranslate"><span class="pre">Ds\Hashable</span></code> interface</a></li>
 </ul>
 </li>
 </ul>

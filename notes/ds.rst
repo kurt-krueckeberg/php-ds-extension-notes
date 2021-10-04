@@ -124,11 +124,13 @@ Use ``JsonSerializable::jsonSerialize()``  to specify data which should be seria
 Ds Interfaces
 -------------
 
-``Collection`` interface synopsis:
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+``Ds\Collection`` interface
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 The Collection interface covers functionality common to all the data structures in this library. It guarantees that all structures are *traversable*, *countable*, and can be converted to json using *json\_encode()*, and it thereby  
 provides support for *foreach*, *echo*, *count*, *print\_r*, *var\_dump*, *serialize*, *json\_encode*, and *clone*.
+
+The PHP **clone** reserved word invokes an object's "copy constructor", which can be implemented through a custom ``__clone() : void``. See PHP `Object Cloing <https://www.php.net/manual/en/language.oop5.cloning.php>`_.
 
 .. code-block:: php
 
@@ -141,8 +143,6 @@ provides support for *foreach*, *echo*, *count*, *print\_r*, *var\_dump*, *seria
         abstract public toArray(): array
     }
 
-The PHP **clone** reserved word invokes an object's "copy constructor", which can be implemented through a custom ``__clone() : void``. See PHP `Object Cloing <https://www.php.net/manual/en/language.oop5.cloning.php>`_.
-
 Method Descriptions
 ~~~~~~~~~~~~~~~~~~~
     
@@ -154,8 +154,8 @@ Method Descriptions
     Ds\Collection::isEmpty() — Returns whether the collection is empty
     Ds\Collection::toArray() — Converts the collection to an array
 
-Ds\Vector Demonstration Code
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Ds\Vector Demonstration of its Ds\Collection interface
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. code-block:: php
 
@@ -284,3 +284,26 @@ Ds\Vector Demonstration Code
        object(Ds\Vector)[2]
        object(Ds\Vector)[3]
        */
+
+``Ds\Hashable`` interface
+~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Hashable is an interface which __allows objects to be used as keys__. It’s an alternative to ``spl_object_hash()``, which determines an object’s hash based on its handle: this means that two objects that are considered equal by an implicit definition would not treated as equal because they are not the same instance.
+
+``hash($my_object)`` is used to return a scalar hash value to be used as the object's hash value, which determines where it goes in the hash table. While this value does not have to be unique, objects which are equal must have the same hash value.
+
+``$my_object->hash()`` returns a scalar hash key to determines where ``$my_object`` should go in the hash table ( WHICH hash table? The Ds classes that are implemented at a has table? OR: Must client's of Ds 'hashable' classes only insert user objects instances that umplement `DS\Hashable`?).
+While this value does not have to be unique, objects which are equal must have the same hash value.
+
+``$myobject->equals($other_object)`` is used to determine if two objects are equal. It's guaranteed that the comparing object will be an instance of the same class as the argument.
+
+    <?php
+    class Ds\Hashable {
+        /* Methods */
+        abstract public equals(object $obj): bool
+        abstract public hash(): mixed
+    }
+
+
+    Ds\Hashable::equals — Determines whether an object is equal to the current instance
+    Ds\Hashable::hash — Returns a scalar value to be used as a hash value
