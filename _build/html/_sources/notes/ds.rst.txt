@@ -154,8 +154,8 @@ Method Descriptions
     Ds\Collection::isEmpty() — Returns whether the collection is empty
     Ds\Collection::toArray() — Converts the collection to an array
 
-Example Code
-~~~~~~~~~~~~
+Ds\Vector Demonstration Code
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. code-block:: php
 
@@ -163,7 +163,17 @@ Example Code
     $collection_a = new \Ds\Vector([1, 2, 3]);
     $collection_b = new \Ds\Vector();
     
-      var_dump($collection_a, $collection_b);
+     var_dump($collection_a, $collection_b);
+
+     //json_encode
+     var_dump( json_encode($collection_a));
+
+     //count
+      echo count($collection_a);
+
+.. raw:: html
+
+    <pre>
        /*
            object(Ds\Vector)[1]
            public 0 => int 1
@@ -174,17 +184,18 @@ Example Code
        */
     
       //json_encode
-      var_dump( json_encode($collection_a));
        /*
        string '[1,2,3]
        */
-     
-       //count
-      var_dump(count($collection_a));
-       /*
-       int 3
+    
+       /* count($collection_a) 
+        3
        */
-     
+    </pre>
+
+.. code-block:: php
+
+      <?php     
        // serialize
        var_dump(serialize($collection_a));
        /*
