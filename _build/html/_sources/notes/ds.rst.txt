@@ -115,10 +115,10 @@ Countable Interface synopsis
 JSONSerializable 
 ~~~~~~~~~~~~~~~~~
 
+Objects implementing ``JsonSerializable`` can customize their JSON representation when encoded with ``json_encode()``.
+
 JSONSerializable Interface synopsis
 +++++++++++++++++++++++++++++++++++
-
-Objects implementing ``JsonSerializable`` can customize their JSON representation when encoded with ``json_encode()``.
 
 JSONSerializable  Interface synopsis
 ++++++++++++++++++++++++++++++++++++

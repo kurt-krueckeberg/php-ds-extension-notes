@@ -1,1 +1,0 @@
-See notes/ds.rst
