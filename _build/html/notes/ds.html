@@ -74,12 +74,12 @@ engine interface. Instead you must implement either <code class="docutils litera
 <h4>Iterator Interface synopsis<a class="headerlink" href="#iterator-interface-synopsis" title="Permalink to this headline">¶</a></h4>
 <div class="highlight-php notranslate"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span>
 <span class="k">interface</span> <span class="nx">Iterator</span> <span class="k">extends</span> <span class="nx">Traversable</span> <span class="p">{</span>
-<span class="cm">/* Methods */</span>
-<span class="k">public</span> <span class="nb">current</span><span class="p">()</span><span class="o">:</span> <span class="nx">mixed</span>  <span class="c1">// Returns current element</span>
-<span class="k">public</span> <span class="nb">key</span><span class="p">()</span><span class="o">:</span> <span class="nx">mixed</span>
-<span class="k">public</span> <span class="nb">next</span><span class="p">()</span><span class="o">:</span> <span class="nx">void</span>
-<span class="k">public</span> <span class="nb">rewind</span><span class="p">()</span><span class="o">:</span> <span class="nx">void</span>
-<span class="k">public</span> <span class="nx">valid</span><span class="p">()</span><span class="o">:</span> <span class="nx">bool</span>
+    <span class="cm">/* Methods */</span>
+    <span class="k">public</span> <span class="nb">current</span><span class="p">()</span><span class="o">:</span> <span class="nx">mixed</span>  <span class="c1">// Returns current element</span>
+    <span class="k">public</span> <span class="nb">key</span><span class="p">()</span><span class="o">:</span> <span class="nx">mixed</span>
+    <span class="k">public</span> <span class="nb">next</span><span class="p">()</span><span class="o">:</span> <span class="nx">void</span>
+    <span class="k">public</span> <span class="nb">rewind</span><span class="p">()</span><span class="o">:</span> <span class="nx">void</span>
+    <span class="k">public</span> <span class="nx">valid</span><span class="p">()</span><span class="o">:</span> <span class="nx">bool</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -165,9 +165,10 @@ provides support for <em>foreach</em>, <em>echo</em>, <em>count</em>, <em>print_
 <span class="x">}</span>
 </pre></div>
 </div>
-<p>The PHP <strong>clone</strong> reserved word invokes an object’s “copy constructor”, which can be implemented through a custom <code class="docutils literal notranslate"><span class="pre">__clone()</span> <span class="pre">:</span> <span class="pre">void</span></code>. See PHP <a class="reference external" href="https://www.php.net/manual/en/language.oop5.cloning.php">Object Cloing</a>.
-Method Descriptions
-~~~~~~~~~~~~~~~~~~~</p>
+<p>The PHP <strong>clone</strong> reserved word invokes an object’s “copy constructor”, which can be implemented through a custom <code class="docutils literal notranslate"><span class="pre">__clone()</span> <span class="pre">:</span> <span class="pre">void</span></code>. See PHP <a class="reference external" href="https://www.php.net/manual/en/language.oop5.cloning.php">Object Cloing</a>.</p>
+</div>
+<div class="section" id="method-descriptions">
+<h3>Method Descriptions<a class="headerlink" href="#method-descriptions" title="Permalink to this headline">¶</a></h3>
 <blockquote>
 <div><p>DsCollection::clear — Removes all values
 DsCollection::copy — Returns a shallow copy of the collection
@@ -177,125 +178,126 @@ DsCollection::toArray — Converts the collection to an array</p>
 </div>
 <div class="section" id="example-code">
 <h3>Example Code<a class="headerlink" href="#example-code" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-php notranslate"><div class="highlight"><pre><span></span><span class="x">$collection_a = new \Ds\Vector([1, 2, 3]);</span>
-<span class="x">$collection_b = new \Ds\Vector();</span>
+<div class="highlight-php notranslate"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span>
+<span class="nv">$collection_a</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">\Ds\Vector</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]);</span>
+<span class="nv">$collection_b</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">\Ds\Vector</span><span class="p">();</span>
 
-<span class="x">  var_dump($collection_a, $collection_b);</span>
-<span class="x">   /*</span>
-<span class="x">       object(Ds\Vector)[1]</span>
-<span class="x">       public 0 =&gt; int 1</span>
-<span class="x">       public 1 =&gt; int 2</span>
-<span class="x">       public 2 =&gt; int 3</span>
+  <span class="nb">var_dump</span><span class="p">(</span><span class="nv">$collection_a</span><span class="p">,</span> <span class="nv">$collection_b</span><span class="p">);</span>
+   <span class="cm">/*</span>
+<span class="cm">       object(Ds\Vector)[1]</span>
+<span class="cm">       public 0 =&gt; int 1</span>
+<span class="cm">       public 1 =&gt; int 2</span>
+<span class="cm">       public 2 =&gt; int 3</span>
 
-<span class="x">       object(Ds\Vector)[2]</span>
-<span class="x">   */</span>
+<span class="cm">       object(Ds\Vector)[2]</span>
+<span class="cm">   */</span>
 
-<span class="x">  //json_encode</span>
-<span class="x">  var_dump( json_encode($collection_a));</span>
-<span class="x">   /*</span>
-<span class="x">   string &#39;[1,2,3]</span>
-<span class="x">   */</span>
+  <span class="c1">//json_encode</span>
+  <span class="nb">var_dump</span><span class="p">(</span> <span class="nb">json_encode</span><span class="p">(</span><span class="nv">$collection_a</span><span class="p">));</span>
+   <span class="cm">/*</span>
+<span class="cm">   string &#39;[1,2,3]</span>
+<span class="cm">   */</span>
 
-<span class="x">   //count</span>
-<span class="x">  var_dump(count($collection_a));</span>
-<span class="x">   /*</span>
-<span class="x">   int 3</span>
-<span class="x">   */</span>
+   <span class="c1">//count</span>
+  <span class="nb">var_dump</span><span class="p">(</span><span class="nb">count</span><span class="p">(</span><span class="nv">$collection_a</span><span class="p">));</span>
+   <span class="cm">/*</span>
+<span class="cm">   int 3</span>
+<span class="cm">   */</span>
 
-<span class="x">   // serialize</span>
-<span class="x">   var_dump(serialize($collection_a));</span>
-<span class="x">   /*</span>
-<span class="x">   string &#39;C:9:&quot;Ds\Vector&quot;:12:{i:1;i:2;i:3;}&#39;</span>
-<span class="x">   */</span>
+   <span class="c1">// serialize</span>
+   <span class="nb">var_dump</span><span class="p">(</span><span class="nb">serialize</span><span class="p">(</span><span class="nv">$collection_a</span><span class="p">));</span>
+   <span class="cm">/*</span>
+<span class="cm">   string &#39;C:9:&quot;Ds\Vector&quot;:12:{i:1;i:2;i:3;}&#39;</span>
+<span class="cm">   */</span>
 
-<span class="x">   // foreach</span>
-<span class="x">   foreach ($collection_a as $key =&gt; $value) {</span>
-<span class="x">      echo $key ,&#39;--&#39;, $value, PHP_EOL;</span>
-<span class="x">   }</span>
-<span class="x">   /*</span>
-<span class="x">      0--1</span>
-<span class="x">      1--2</span>
-<span class="x">      2--3</span>
-<span class="x">    */</span>
+   <span class="c1">// foreach</span>
+   <span class="k">foreach</span> <span class="p">(</span><span class="nv">$collection_a</span> <span class="k">as</span> <span class="nv">$key</span> <span class="o">=&gt;</span> <span class="nv">$value</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">echo</span> <span class="nv">$key</span> <span class="p">,</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="nv">$value</span><span class="p">,</span> <span class="nx">PHP_EOL</span><span class="p">;</span>
+   <span class="p">}</span>
+   <span class="cm">/*</span>
+<span class="cm">      0--1</span>
+<span class="cm">      1--2</span>
+<span class="cm">      2--3</span>
+<span class="cm">    */</span>
 
-<span class="x">   // clone</span>
-<span class="x">   $clone = clone($collection_a);</span>
-<span class="x">   var_dump($clone);</span>
-<span class="x">   /*</span>
-<span class="x">     object(Ds\Vector)[1]</span>
-<span class="x">     public 0 =&gt; int 1</span>
-<span class="x">     public 1 =&gt; int 2</span>
-<span class="x">     public 2 =&gt; int 3</span>
-<span class="x">   */</span>
+   <span class="c1">// clone</span>
+   <span class="nv">$clone</span> <span class="o">=</span> <span class="k">clone</span><span class="p">(</span><span class="nv">$collection_a</span><span class="p">);</span>
+   <span class="nb">var_dump</span><span class="p">(</span><span class="nv">$clone</span><span class="p">);</span>
+   <span class="cm">/*</span>
+<span class="cm">     object(Ds\Vector)[1]</span>
+<span class="cm">     public 0 =&gt; int 1</span>
+<span class="cm">     public 1 =&gt; int 2</span>
+<span class="cm">     public 2 =&gt; int 3</span>
+<span class="cm">   */</span>
 
-<span class="x">   // push</span>
-<span class="x">   $clone-&gt;push(&#39;aa&#39;);</span>
-<span class="x">   var_dump($clone);</span>
-<span class="x">   /*</span>
-<span class="x">   object(Ds\Vector)[3]</span>
-<span class="x">     public 0 =&gt; int 1</span>
-<span class="x">     public 1 =&gt; int 2</span>
-<span class="x">     public 2 =&gt; int 3</span>
-<span class="x">     public 3 =&gt; string &#39;aa&#39; (length=2)</span>
-<span class="x">    */</span>
+   <span class="c1">// push</span>
+   <span class="nv">$clone</span><span class="o">-&gt;</span><span class="na">push</span><span class="p">(</span><span class="s1">&#39;aa&#39;</span><span class="p">);</span>
+   <span class="nb">var_dump</span><span class="p">(</span><span class="nv">$clone</span><span class="p">);</span>
+   <span class="cm">/*</span>
+<span class="cm">   object(Ds\Vector)[3]</span>
+<span class="cm">     public 0 =&gt; int 1</span>
+<span class="cm">     public 1 =&gt; int 2</span>
+<span class="cm">     public 2 =&gt; int 3</span>
+<span class="cm">     public 3 =&gt; string &#39;aa&#39; (length=2)</span>
+<span class="cm">    */</span>
 
-<span class="x">  // isEmpty</span>
-<span class="x">  var_dump($collection_a-&gt;isEmpty(), $collection_b-&gt;isEmpty());</span>
-<span class="x">   /*</span>
-<span class="x">   boolean false</span>
-<span class="x">   boolean true</span>
-<span class="x">    */</span>
+  <span class="c1">// isEmpty</span>
+  <span class="nb">var_dump</span><span class="p">(</span><span class="nv">$collection_a</span><span class="o">-&gt;</span><span class="na">isEmpty</span><span class="p">(),</span> <span class="nv">$collection_b</span><span class="o">-&gt;</span><span class="na">isEmpty</span><span class="p">());</span>
+   <span class="cm">/*</span>
+<span class="cm">   boolean false</span>
+<span class="cm">   boolean true</span>
+<span class="cm">    */</span>
 
-<span class="x">  // toArray</span>
-<span class="x">  var_dump($collection_a-&gt;toArray(), $collection_b-&gt;toArray());</span>
-<span class="x">   /*</span>
-<span class="x">    array (size=3)</span>
-<span class="x">     0 =&gt; int 1</span>
-<span class="x">     1 =&gt; int 2</span>
-<span class="x">     2 =&gt; int 3</span>
+  <span class="c1">// toArray</span>
+  <span class="nb">var_dump</span><span class="p">(</span><span class="nv">$collection_a</span><span class="o">-&gt;</span><span class="na">toArray</span><span class="p">(),</span> <span class="nv">$collection_b</span><span class="o">-&gt;</span><span class="na">toArray</span><span class="p">());</span>
+   <span class="cm">/*</span>
+<span class="cm">    array (size=3)</span>
+<span class="cm">     0 =&gt; int 1</span>
+<span class="cm">     1 =&gt; int 2</span>
+<span class="cm">     2 =&gt; int 3</span>
 
-<span class="x">   array (size=0)</span>
-<span class="x">     empty</span>
-<span class="x">   */</span>
+<span class="cm">   array (size=0)</span>
+<span class="cm">     empty</span>
+<span class="cm">   */</span>
 
-<span class="x">  // copy ( void )</span>
-<span class="x">  //浅拷贝， shallow copy</span>
-<span class="x">  $collection_c = $collection_a-&gt;copy();</span>
+  <span class="c1">// copy ( void )</span>
+  <span class="c1">//浅拷贝， shallow copy</span>
+  <span class="nv">$collection_c</span> <span class="o">=</span> <span class="nv">$collection_a</span><span class="o">-&gt;</span><span class="na">copy</span><span class="p">();</span>
 
-<span class="x">  var_dump($collection_c);</span>
-<span class="x">   /*</span>
-<span class="x">   object(Ds\Vector)[3]</span>
-<span class="x">     public 0 =&gt; int 1</span>
-<span class="x">     public 1 =&gt; int 2</span>
-<span class="x">     public 2 =&gt; int 3</span>
-<span class="x">   */</span>
+  <span class="nb">var_dump</span><span class="p">(</span><span class="nv">$collection_c</span><span class="p">);</span>
+   <span class="cm">/*</span>
+<span class="cm">   object(Ds\Vector)[3]</span>
+<span class="cm">     public 0 =&gt; int 1</span>
+<span class="cm">     public 1 =&gt; int 2</span>
+<span class="cm">     public 2 =&gt; int 3</span>
+<span class="cm">   */</span>
 
-<span class="x">  $collection_c-&gt;push(4);</span>
-<span class="x">  var_dump($collection_a, $collection_c);</span>
-<span class="x">   /*</span>
-<span class="x">   object(Ds\Vector)[1]</span>
-<span class="x">     public 0 =&gt; int 1</span>
-<span class="x">     public 1 =&gt; int 2</span>
-<span class="x">     public 2 =&gt; int 3</span>
+  <span class="nv">$collection_c</span><span class="o">-&gt;</span><span class="na">push</span><span class="p">(</span><span class="mi">4</span><span class="p">);</span>
+  <span class="nb">var_dump</span><span class="p">(</span><span class="nv">$collection_a</span><span class="p">,</span> <span class="nv">$collection_c</span><span class="p">);</span>
+   <span class="cm">/*</span>
+<span class="cm">   object(Ds\Vector)[1]</span>
+<span class="cm">     public 0 =&gt; int 1</span>
+<span class="cm">     public 1 =&gt; int 2</span>
+<span class="cm">     public 2 =&gt; int 3</span>
 
-<span class="x">   object(Ds\Vector)[3]</span>
-<span class="x">     public 0 =&gt; int 1</span>
-<span class="x">     public 1 =&gt; int 2</span>
-<span class="x">     public 2 =&gt; int 3</span>
-<span class="x">     public 3 =&gt; int 4</span>
-<span class="x">   */</span>
+<span class="cm">   object(Ds\Vector)[3]</span>
+<span class="cm">     public 0 =&gt; int 1</span>
+<span class="cm">     public 1 =&gt; int 2</span>
+<span class="cm">     public 2 =&gt; int 3</span>
+<span class="cm">     public 3 =&gt; int 4</span>
+<span class="cm">   */</span>
 
-<span class="x">   // clear</span>
-<span class="x">   $collection_a-&gt;clear();</span>
-<span class="x">   $collection_b-&gt;clear();</span>
-<span class="x">   $collection_c-&gt;clear();</span>
+   <span class="c1">// clear</span>
+   <span class="nv">$collection_a</span><span class="o">-&gt;</span><span class="na">clear</span><span class="p">();</span>
+   <span class="nv">$collection_b</span><span class="o">-&gt;</span><span class="na">clear</span><span class="p">();</span>
+   <span class="nv">$collection_c</span><span class="o">-&gt;</span><span class="na">clear</span><span class="p">();</span>
 
-<span class="x">   var_dump($collection_a, $collection_b, $collection_c);</span>
-<span class="x">   /*</span>
-<span class="x">   object(Ds\Vector)[1]</span>
-<span class="x">   object(Ds\Vector)[2]</span>
-<span class="x">   object(Ds\Vector)[3]</span>
-<span class="x">   */</span>
+   <span class="nb">var_dump</span><span class="p">(</span><span class="nv">$collection_a</span><span class="p">,</span> <span class="nv">$collection_b</span><span class="p">,</span> <span class="nv">$collection_c</span><span class="p">);</span>
+   <span class="cm">/*</span>
+<span class="cm">   object(Ds\Vector)[1]</span>
+<span class="cm">   object(Ds\Vector)[2]</span>
+<span class="cm">   object(Ds\Vector)[3]</span>
+<span class="cm">   */</span>
 </pre></div>
 </div>
 </div>
@@ -334,6 +336,7 @@ DsCollection::toArray — Converts the collection to an array</p>
 </li>
 <li><a class="reference internal" href="#ds-interfaces">Ds Interfaces</a><ul>
 <li><a class="reference internal" href="#collection-interface-synopsis"><code class="docutils literal notranslate"><span class="pre">Collection</span></code> interface synopsis:</a></li>
+<li><a class="reference internal" href="#method-descriptions">Method Descriptions</a></li>
 <li><a class="reference internal" href="#example-code">Example Code</a></li>
 </ul>
 </li>
