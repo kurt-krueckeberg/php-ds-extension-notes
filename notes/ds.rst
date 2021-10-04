@@ -48,14 +48,15 @@ Iterator Interface synopsis
 +++++++++++++++++++++++++++
 
 .. code-block:: php
-
+    
+    <?php
     interface Iterator extends Traversable {
-    /* Methods */
-    public current(): mixed  // Returns current element
-    public key(): mixed
-    public next(): void
-    public rewind(): void
-    public valid(): bool
+        /* Methods */
+        public current(): mixed  // Returns current element
+        public key(): mixed
+        public next(): void
+        public rewind(): void
+        public valid(): bool
     }
 
 Examples of ``Iterator`` uses: 
@@ -98,9 +99,39 @@ This is roughly equivalent to:
 Countable Iterface
 ~~~~~~~~~~~~~~~~~~
 
-JSON Serializable 
+Countable Interface synopsis
+++++++++++++++++++++++++++++
+
+.. code-block:: php
+
+    <?php
+    interface Countable {
+        /* Methods */
+        public count(): int
+    }
+
+``Countable::count`` returns the number of elements in an object.
+
+JSONSerializable 
 ~~~~~~~~~~~~~~~~~
 
+JSONSerializable Interface synopsis
++++++++++++++++++++++++++++++++++++
+
+Objects implementing ``JsonSerializable`` can customize their JSON representation when encoded with ``json_encode()``.
+
+JSONSerializable  Interface synopsis
+++++++++++++++++++++++++++++++++++++
+
+.. code-block:: php
+
+    <?php
+    interface JsonSerializable {
+        /* Methods */
+        public jsonSerialize(): mixed
+    }
+
+Use ``JsonSerializable::jsonSerialize()``  to specify data which should be serialized to JSON.
 
 Ds Interfaces
 -------------
@@ -121,6 +152,8 @@ provides support for *foreach*, *echo*, *count*, *print\_r*, *var\_dump*, *seria
         abstract public toArray(): array
     }
 
+The PHP **clone** reserved word invokes an object's "copy constructor", which can be implemented through a custom ``__clone() : void``. See PHP `Object Cloing <https://www.php.net/manual/en/language.oop5.cloning.php>`_.
+
 Method Descriptions
 ~~~~~~~~~~~~~~~~~~~
     
@@ -134,6 +167,7 @@ Example Code
 
 .. code-block:: php
 
+    <?php
     $collection_a = new \Ds\Vector([1, 2, 3]);
     $collection_b = new \Ds\Vector();
     

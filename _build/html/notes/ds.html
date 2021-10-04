@@ -50,7 +50,7 @@
 </div>
 <div class="section" id="important-comment-on-installation">
 <h2>Important Comment on Installation<a class="headerlink" href="#important-comment-on-installation" title="Permalink to this headline">¶</a></h2>
-<p>If you are using <strong>nginx</strong>, remember to restart the PHP fascgi process after enabling the Ds extension:</p>
+<p>If you are using <strong>nginx</strong>, you must restart the PHP fascgi process after enabling the <strong>Ds</strong> extension:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo systemctl restart php7.4-fpm
 </pre></div>
 </div>
@@ -72,14 +72,15 @@ engine interface. Instead you must implement either <code class="docutils litera
 <p><code class="docutils literal notranslate"><span class="pre">Iterator</span></code> is the interface for external iterators or objects that can be iterated themselves internally.</p>
 <div class="section" id="iterator-interface-synopsis">
 <h4>Iterator Interface synopsis<a class="headerlink" href="#iterator-interface-synopsis" title="Permalink to this headline">¶</a></h4>
-<div class="highlight-php notranslate"><div class="highlight"><pre><span></span><span class="x">interface Iterator extends Traversable {</span>
-<span class="x">/* Methods */</span>
-<span class="x">public current(): mixed  // Returns current element</span>
-<span class="x">public key(): mixed</span>
-<span class="x">public next(): void</span>
-<span class="x">public rewind(): void</span>
-<span class="x">public valid(): bool</span>
-<span class="x">}</span>
+<div class="highlight-php notranslate"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span>
+<span class="k">interface</span> <span class="nx">Iterator</span> <span class="k">extends</span> <span class="nx">Traversable</span> <span class="p">{</span>
+<span class="cm">/* Methods */</span>
+<span class="k">public</span> <span class="nb">current</span><span class="p">()</span><span class="o">:</span> <span class="nx">mixed</span>  <span class="c1">// Returns current element</span>
+<span class="k">public</span> <span class="nb">key</span><span class="p">()</span><span class="o">:</span> <span class="nx">mixed</span>
+<span class="k">public</span> <span class="nb">next</span><span class="p">()</span><span class="o">:</span> <span class="nx">void</span>
+<span class="k">public</span> <span class="nb">rewind</span><span class="p">()</span><span class="o">:</span> <span class="nx">void</span>
+<span class="k">public</span> <span class="nx">valid</span><span class="p">()</span><span class="o">:</span> <span class="nx">bool</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <p>Examples of <code class="docutils literal notranslate"><span class="pre">Iterator</span></code> uses:</p>
@@ -118,9 +119,35 @@ a <code class="docutils literal notranslate"><span class="pre">foreach</span></c
 </div>
 <div class="section" id="countable-iterface">
 <h3>Countable Iterface<a class="headerlink" href="#countable-iterface" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="countable-interface-synopsis">
+<h4>Countable Interface synopsis<a class="headerlink" href="#countable-interface-synopsis" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-php notranslate"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span>
+<span class="k">interface</span> <span class="nx">Countable</span> <span class="p">{</span>
+    <span class="cm">/* Methods */</span>
+    <span class="k">public</span> <span class="nb">count</span><span class="p">()</span><span class="o">:</span> <span class="nx">int</span>
+<span class="p">}</span>
+</pre></div>
 </div>
-<div class="section" id="json-serializable">
-<h3>JSON Serializable<a class="headerlink" href="#json-serializable" title="Permalink to this headline">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">Countable::count</span></code> returns the number of elements in an object.</p>
+</div>
+</div>
+<div class="section" id="jsonserializable">
+<h3>JSONSerializable<a class="headerlink" href="#jsonserializable" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="jsonserializable-interface-synopsis">
+<h4>JSONSerializable Interface synopsis<a class="headerlink" href="#jsonserializable-interface-synopsis" title="Permalink to this headline">¶</a></h4>
+<p>Objects implementing <code class="docutils literal notranslate"><span class="pre">JsonSerializable</span></code> can customize their JSON representation when encoded with <code class="docutils literal notranslate"><span class="pre">json_encode()</span></code>.</p>
+</div>
+<div class="section" id="id1">
+<h4>JSONSerializable  Interface synopsis<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-php notranslate"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span>
+<span class="k">interface</span> <span class="nx">JsonSerializable</span> <span class="p">{</span>
+    <span class="cm">/* Methods */</span>
+    <span class="k">public</span> <span class="nx">jsonSerialize</span><span class="p">()</span><span class="o">:</span> <span class="nx">mixed</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Use <code class="docutils literal notranslate"><span class="pre">JsonSerializable::jsonSerialize()</span></code>  to specify data which should be serialized to JSON.</p>
+</div>
 </div>
 </div>
 <div class="section" id="ds-interfaces">
@@ -138,9 +165,9 @@ provides support for <em>foreach</em>, <em>echo</em>, <em>count</em>, <em>print_
 <span class="x">}</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="method-descriptions">
-<h3>Method Descriptions<a class="headerlink" href="#method-descriptions" title="Permalink to this headline">¶</a></h3>
+<p>The PHP <strong>clone</strong> reserved word invokes an object’s “copy constructor”, which can be implemented through a custom <code class="docutils literal notranslate"><span class="pre">__clone()</span> <span class="pre">:</span> <span class="pre">void</span></code>. See PHP <a class="reference external" href="https://www.php.net/manual/en/language.oop5.cloning.php">Object Cloing</a>.
+Method Descriptions
+~~~~~~~~~~~~~~~~~~~</p>
 <blockquote>
 <div><p>DsCollection::clear — Removes all values
 DsCollection::copy — Returns a shallow copy of the collection
@@ -294,13 +321,19 @@ DsCollection::toArray — Converts the collection to an array</p>
 <li><a class="reference internal" href="#explanation">Explanation</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#countable-iterface">Countable Iterface</a></li>
-<li><a class="reference internal" href="#json-serializable">JSON Serializable</a></li>
+<li><a class="reference internal" href="#countable-iterface">Countable Iterface</a><ul>
+<li><a class="reference internal" href="#countable-interface-synopsis">Countable Interface synopsis</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#jsonserializable">JSONSerializable</a><ul>
+<li><a class="reference internal" href="#jsonserializable-interface-synopsis">JSONSerializable Interface synopsis</a></li>
+<li><a class="reference internal" href="#id1">JSONSerializable  Interface synopsis</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li><a class="reference internal" href="#ds-interfaces">Ds Interfaces</a><ul>
 <li><a class="reference internal" href="#collection-interface-synopsis"><code class="docutils literal notranslate"><span class="pre">Collection</span></code> interface synopsis:</a></li>
-<li><a class="reference internal" href="#method-descriptions">Method Descriptions</a></li>
 <li><a class="reference internal" href="#example-code">Example Code</a></li>
 </ul>
 </li>
