@@ -24,7 +24,7 @@ If you are using **nginx**, you must restart the PHP fascgi process after enabli
 
 .. code-block:: bash
 
-    sudo systemctl restart php7.4-fpm
+    $ sudo systemctl restart php7.4-fpm
 
 Summary of Built&ndash;in PHP Interfaces
 ----------------------------------------
