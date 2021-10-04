@@ -154,8 +154,8 @@ Method Descriptions
     Ds\Collection::isEmpty() — Returns whether the collection is empty
     Ds\Collection::toArray() — Converts the collection to an array
 
-Example Code
-~~~~~~~~~~~~
+Ds\Vector Demonstration Code
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. code-block:: php
 

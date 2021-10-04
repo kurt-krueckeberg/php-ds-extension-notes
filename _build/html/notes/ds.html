@@ -58,20 +58,18 @@
 <div class="section" id="summary-of-builtndashin-php-interfaces">
 <h2>Summary of Built–in PHP Interfaces<a class="headerlink" href="#summary-of-builtndashin-php-interfaces" title="Permalink to this headline">¶</a></h2>
 <p>Understanding the built–in PHP interfaces helps in understanding the <code class="docutils literal notranslate"><span class="pre">\Ds</span></code> interfaces and classes.</p>
-<div class="section" id="traversable-interface">
-<h3>Traversable Interface<a class="headerlink" href="#traversable-interface" title="Permalink to this headline">¶</a></h3>
-<p>To enable iteration in a <code class="docutils literal notranslate"><span class="pre">foreach</span></code> loop of a user–defined class, you must support the <code class="docutils literal notranslate"><span class="pre">\Traversable</span></code> interface, but you cannot implement <code class="docutils literal notranslate"><span class="pre">\Traverable</span></code> directly in user–defined classes directly becasue <code class="docutils literal notranslate"><span class="pre">\Traversable</span></code> is a internal PHP
-engine interface. Instead you must implement either <code class="docutils literal notranslate"><span class="pre">IteratorAggregate</span></code> or <code class="docutils literal notranslate"><span class="pre">Iterator</span></code>.</p>
+<div class="section" id="traversable-interface-synopsis">
+<h3>Traversable Interface Synopsis<a class="headerlink" href="#traversable-interface-synopsis" title="Permalink to this headline">¶</a></h3>
+<p>To iterate a  a user–defined class with <code class="docutils literal notranslate"><span class="pre">foreach</span></code>, you must support the <code class="docutils literal notranslate"><span class="pre">\Traversable</span></code> interface, but since you cannot implement <code class="docutils literal notranslate"><span class="pre">\Traverable</span></code> directly in user–defined classes becasue <code class="docutils literal notranslate"><span class="pre">\Traversable</span></code> is a internal PHP
+engine interface, you must instead implement either <code class="docutils literal notranslate"><span class="pre">IteratorAggregate</span></code> or <code class="docutils literal notranslate"><span class="pre">Iterator</span></code>.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Since the Data Structures extension extends the PHP engine itself, the preceding comments don’t apply to it; they only apply to user–defined classes.</p>
+<p>The Data Structures extension extends the PHP engine itself, so the preceding comments don’t apply to it. They only apply to user–defined classes.</p>
 </div>
 </div>
-<div class="section" id="iterator-interface">
-<h3>Iterator Interface<a class="headerlink" href="#iterator-interface" title="Permalink to this headline">¶</a></h3>
-<p><code class="docutils literal notranslate"><span class="pre">Iterator</span></code> is the interface for external iterators or objects that can be iterated themselves internally.</p>
 <div class="section" id="iterator-interface-synopsis">
-<h4>Iterator Interface synopsis<a class="headerlink" href="#iterator-interface-synopsis" title="Permalink to this headline">¶</a></h4>
+<h3>Iterator Interface Synopsis<a class="headerlink" href="#iterator-interface-synopsis" title="Permalink to this headline">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">Iterator</span></code> is the interface for external iterators or objects that can be iterated themselves internally.</p>
 <div class="highlight-php notranslate"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span>
 <span class="k">interface</span> <span class="nx">Iterator</span> <span class="k">extends</span> <span class="nx">Traversable</span> <span class="p">{</span>
     <span class="cm">/* Methods */</span>
@@ -86,7 +84,6 @@ engine interface. Instead you must implement either <code class="docutils litera
 <p>Examples of <code class="docutils literal notranslate"><span class="pre">Iterator</span></code> uses:</p>
 <p><code class="docutils literal notranslate"><span class="pre">SplFileObject</span></code> implments the <code class="docutils literal notranslate"><span class="pre">Iterator</span></code> and can be usedin a <code class="docutils literal notranslate"><span class="pre">foreach</span></code> loop to iteratre over the lines of a file or rows of a CSV file. Other built-in PHP classes like <code class="docutils literal notranslate"><span class="pre">FilterIterator</span></code>, <code class="docutils literal notranslate"><span class="pre">RegexIterator</span></code> and so on  also implement <code class="docutils literal notranslate"><span class="pre">Iterator</span></code>, often by implementing a
 an interface derived from <code class="docutils literal notranslate"><span class="pre">Iterator</span></code>.</p>
-</div>
 <div class="section" id="explanation">
 <h4>Explanation<a class="headerlink" href="#explanation" title="Permalink to this headline">¶</a></h4>
 <p>The methods should be implemented so <code class="docutils literal notranslate"><span class="pre">current</span></code> returns the current element. <code class="docutils literal notranslate"><span class="pre">current()</span></code> is the PHP analogue of the dereference opertor of C++ stl-compliant iterator classes. <code class="docutils literal notranslate"><span class="pre">key()</span></code> returns the key of the current element. <code class="docutils literal notranslate"><span class="pre">next()</span></code> is analogous to a C++ iterator’s
@@ -94,8 +91,8 @@ an interface derived from <code class="docutils literal notranslate"><span class
 a <code class="docutils literal notranslate"><span class="pre">foreach</span></code> loop should end because is “past” the last element.</p>
 <p>A <code class="docutils literal notranslate"><span class="pre">foreach</span></code> loop invokes <code class="docutils literal notranslate"><span class="pre">Iterator</span></code> methods in this order:</p>
 <ol class="arabic simple">
-<li><p>Before the first iteration of the loop, Iterator::rewind() is called.</p></li>
-<li><p>Before each iteration of the loop, Iterator::valid() is called.</p></li>
+<li><p>Before the first iteration of the loop, <code class="docutils literal notranslate"><span class="pre">Iterator::rewind()</span></code> is called.</p></li>
+<li><p>Before each iteration of the loop, <code class="docutils literal notranslate"><span class="pre">Iterator::valid()</span></code> is called.</p></li>
 <li><p>If <code class="docutils literal notranslate"><span class="pre">Iterator::valid()</span></code> returns false, the loop is terminated; otherwise, it continues and <code class="docutils literal notranslate"><span class="pre">Iterator::valid()</span></code> and <code class="docutils literal notranslate"><span class="pre">Iterator::key()</span></code> are called.</p></li>
 <li><p>The loop body is evaluated.</p></li>
 <li><p>After each iteration of the loop, <code class="docutils literal notranslate"><span class="pre">Iterator::next()</span></code> is called and we go to step #2.</p></li>
@@ -117,10 +114,8 @@ a <code class="docutils literal notranslate"><span class="pre">foreach</span></c
 </div>
 </div>
 </div>
-<div class="section" id="countable-iterface">
-<h3>Countable Iterface<a class="headerlink" href="#countable-iterface" title="Permalink to this headline">¶</a></h3>
 <div class="section" id="countable-interface-synopsis">
-<h4>Countable Interface synopsis<a class="headerlink" href="#countable-interface-synopsis" title="Permalink to this headline">¶</a></h4>
+<h3>Countable Interface Synopsis<a class="headerlink" href="#countable-interface-synopsis" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-php notranslate"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span>
 <span class="k">interface</span> <span class="nx">Countable</span> <span class="p">{</span>
     <span class="cm">/* Methods */</span>
@@ -128,14 +123,10 @@ a <code class="docutils literal notranslate"><span class="pre">foreach</span></c
 <span class="p">}</span>
 </pre></div>
 </div>
-<p><code class="docutils literal notranslate"><span class="pre">Countable::count</span></code> returns the number of elements in an object.</p>
-</div>
-</div>
-<div class="section" id="jsonserializable">
-<h3>JSONSerializable<a class="headerlink" href="#jsonserializable" title="Permalink to this headline">¶</a></h3>
-<p>Objects implementing <code class="docutils literal notranslate"><span class="pre">JsonSerializable</span></code> can customize their JSON representation when encoded with <code class="docutils literal notranslate"><span class="pre">json_encode()</span></code>.</p>
+<p>This interfaces allows an object instance to be use with PHP’s <code class="docutils literal notranslate"><span class="pre">count($my_object)</span></code> method.  Implement <code class="docutils literal notranslate"><span class="pre">Countable::count</span></code> so it returns the number of elements in the object.</p>
 <div class="section" id="jsonserializable-interface-synopsis">
 <h4>JSONSerializable  Interface synopsis<a class="headerlink" href="#jsonserializable-interface-synopsis" title="Permalink to this headline">¶</a></h4>
+<p>Objects implementing <code class="docutils literal notranslate"><span class="pre">JsonSerializable</span></code> can customize their JSON representation when encoded with <code class="docutils literal notranslate"><span class="pre">json_encode()</span></code>.</p>
 <div class="highlight-php notranslate"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span>
 <span class="k">interface</span> <span class="nx">JsonSerializable</span> <span class="p">{</span>
     <span class="cm">/* Methods */</span>
@@ -316,17 +307,12 @@ provides support for <em>foreach</em>, <em>echo</em>, <em>count</em>, <em>print_
 <li><a class="reference internal" href="#introduction">Introduction</a></li>
 <li><a class="reference internal" href="#important-comment-on-installation">Important Comment on Installation</a></li>
 <li><a class="reference internal" href="#summary-of-builtndashin-php-interfaces">Summary of Built–in PHP Interfaces</a><ul>
-<li><a class="reference internal" href="#traversable-interface">Traversable Interface</a></li>
-<li><a class="reference internal" href="#iterator-interface">Iterator Interface</a><ul>
-<li><a class="reference internal" href="#iterator-interface-synopsis">Iterator Interface synopsis</a></li>
+<li><a class="reference internal" href="#traversable-interface-synopsis">Traversable Interface Synopsis</a></li>
+<li><a class="reference internal" href="#iterator-interface-synopsis">Iterator Interface Synopsis</a><ul>
 <li><a class="reference internal" href="#explanation">Explanation</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#countable-iterface">Countable Iterface</a><ul>
-<li><a class="reference internal" href="#countable-interface-synopsis">Countable Interface synopsis</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#jsonserializable">JSONSerializable</a><ul>
+<li><a class="reference internal" href="#countable-interface-synopsis">Countable Interface Synopsis</a><ul>
 <li><a class="reference internal" href="#jsonserializable-interface-synopsis">JSONSerializable  Interface synopsis</a></li>
 </ul>
 </li>
