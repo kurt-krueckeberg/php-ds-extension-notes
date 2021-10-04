@@ -1,1 +1,1 @@
-See \_build/html/index.html
+See notes/ds.rst
