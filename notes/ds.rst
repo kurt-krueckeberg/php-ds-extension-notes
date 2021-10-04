@@ -26,19 +26,19 @@ If you are using **nginx**, you must restart the PHP fascgi process after enabli
 
     $ sudo systemctl restart php7.4-fpm
 
-Summary of Built&ndash;in PHP Interfaces
+Summary of Built\ |ndash|\ in PHP Interfaces
 ----------------------------------------
 
-Understanding the built&ndahs;in PHP interfaces helps in understanding the ``\Ds`` interfaces and classes. 
+Understanding the built\ |ndash|\ in PHP interfaces helps in understanding the ``\Ds`` interfaces and classes. 
 
 Traversable Interface
 ~~~~~~~~~~~~~~~~~~~~~
 
-To enable iteration in a ``foreach`` loop of a user&ndash;defined class, you must support the ``\Traversable`` interface, but you cannot implement ``\Traverable`` directly in user&ndash;defined classes directly becasue ``\Traversable`` is a internal PHP
+To enable iteration in a ``foreach`` loop of a user\ |ndash|\ defined class, you must support the ``\Traversable`` interface, but you cannot implement ``\Traverable`` directly in user\ |ndash|\ defined classes directly becasue ``\Traversable`` is a internal PHP
 engine interface. Instead you must implement either ``IteratorAggregate`` or ``Iterator``. 
 
-.. note:: Since the ``\Ds`` extension extends the PHP engine itself, the the preceding comments don't apply to it, only to user&ndash; defined classes. 
-
+.. note:: Since the Data Structures extension extends the PHP engine itself, the preceding comments don't apply to it; they only apply to user\ |ndash|\ defined classes.
+ 
 Iterator Interface
 ~~~~~~~~~~~~~~~~~~
 
@@ -116,9 +116,6 @@ JSONSerializable
 ~~~~~~~~~~~~~~~~~
 
 Objects implementing ``JsonSerializable`` can customize their JSON representation when encoded with ``json_encode()``.
-
-JSONSerializable Interface synopsis
-+++++++++++++++++++++++++++++++++++
 
 JSONSerializable  Interface synopsis
 ++++++++++++++++++++++++++++++++++++
