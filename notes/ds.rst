@@ -292,7 +292,7 @@ Hashable is an interface which __allows objects to be used as keys__. It’s an 
 
 ``hash($my_object)`` is used to return a scalar hash value to be used as the object's hash value, which determines where it goes in the hash table. While this value does not have to be unique, objects which are equal must have the same hash value.
 
-``$my_object->hash()`` returns a scalar hash key to determines where ``$my_object`` should go in the hash table ( WHICH hash table? The Ds classes that are implemented at a has table? OR: Must client's of Ds 'hashable' classes only insert user objects instances that umplement `DS\Hashable`?).
+``$my_object->hash()`` returns a scalar hash key to determines where ``$my_object`` should go in the hash table (--but WHICH hash table? Are certain Ds classes implemented as a has table, and must clients, in order to insert into them, derive user-defined classes from ``Ds\Hashable``?)
 While this value does not have to be unique, objects which are equal must have the same hash value.
 
 ``$myobject->equals($other_object)`` is used to determine if two objects are equal. It's guaranteed that the comparing object will be an instance of the same class as the argument.
