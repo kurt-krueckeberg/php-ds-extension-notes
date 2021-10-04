@@ -1,0 +1,353 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PHP Data Structures Extension &#8212; PHP Ds Data Structures Extension 1.0 documentation</title>
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/sphinxdoc.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="prev" title="Welcome to PHP Ds Data Structures Extension’s documentation!" href="../index.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../index.html" title="Welcome to PHP Ds Data Structures Extension’s documentation!"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">PHP Ds Data Structures Extension 1.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">PHP Data Structures Extension</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="php-data-structures-extension">
+<h1>PHP Data Structures Extension<a class="headerlink" href="#php-data-structures-extension" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
+<p>The <a class="reference external" href="https://www.php.net/manual/en/book.ds.php">PHP 7 Data Structures Extension</a>  provides classical data structures for use in PHP. It is more flexible and efficient than PHP’s one-fize-fits-all <code class="docutils literal notranslate"><span class="pre">array</span></code>.
+<a class="reference external" href="https://medium.com/&#64;rtheunissen/efficient-data-structures-for-php-7-9dda7af674cd">Efficient Data Structures for PHP</a> explains its classes <em>Vector</em>, <em>Deque</em>, <em>Map</em>, <em>Set</em>, <em>Stack</em>, <em>Queue</em>, <em>PriorityQueue</em> and <em>Pair</em> and their implemented interfaces—<em>Collection</em>, <em>Hashable</em> and <em>Sequence</em>.</p>
+<p>See also:</p>
+<ul class="simple">
+<li><p>This <a class="reference external" href="https://www.reddit.com/r/PHP/comments/b6ffs5/who_here_uses_ds_data_structures_and_for_which/">Reddit thread</a>.</p></li>
+<li><p>The answers to questions at the end of the <strong>Ds</strong> github repository <a class="reference external" href="https://github.com/php-ds/ext-ds">README</a>.</p></li>
+</ul>
+<p>I believe <strong>polyfill</strong> is a <a class="reference external" href="https://github.com/php-ds/polyfill">related extension</a>.</p>
+</div>
+<div class="section" id="important-comment-on-installation">
+<h2>Important Comment on Installation<a class="headerlink" href="#important-comment-on-installation" title="Permalink to this headline">¶</a></h2>
+<p>If you are using <strong>nginx</strong>, remember to restart the PHP fascgi process after enabling the Ds extension:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo systemctl restart php7.4-fpm
+</pre></div>
+</div>
+</div>
+<div class="section" id="summary-of-built-ndash-in-php-interfaces">
+<h2>Summary of Built&amp;ndash;in PHP Interfaces<a class="headerlink" href="#summary-of-built-ndash-in-php-interfaces" title="Permalink to this headline">¶</a></h2>
+<p>Understanding the built&amp;ndahs;in PHP interfaces helps in understanding the <code class="docutils literal notranslate"><span class="pre">\Ds</span></code> interfaces and classes.</p>
+<div class="section" id="traversable-interface">
+<h3>Traversable Interface<a class="headerlink" href="#traversable-interface" title="Permalink to this headline">¶</a></h3>
+<p>To enable iteration in a <code class="docutils literal notranslate"><span class="pre">foreach</span></code> loop of a user&amp;ndash;defined class, you must support the <code class="docutils literal notranslate"><span class="pre">\Traversable</span></code> interface, but you cannot implement <code class="docutils literal notranslate"><span class="pre">\Traverable</span></code> directly in user&amp;ndash;defined classes directly becasue <code class="docutils literal notranslate"><span class="pre">\Traversable</span></code> is a internal PHP
+engine interface. Instead you must implement either <code class="docutils literal notranslate"><span class="pre">IteratorAggregate</span></code> or <code class="docutils literal notranslate"><span class="pre">Iterator</span></code>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Since the <code class="docutils literal notranslate"><span class="pre">\Ds</span></code> extension extends the PHP engine itself, the the preceding comments don’t apply to it, only to user&amp;ndash; defined classes.</p>
+</div>
+</div>
+<div class="section" id="iterator-interface">
+<h3>Iterator Interface<a class="headerlink" href="#iterator-interface" title="Permalink to this headline">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">Iterator</span></code> is the interface for external iterators or objects that can be iterated themselves internally.</p>
+<div class="section" id="iterator-interface-synopsis">
+<h4>Iterator Interface synopsis<a class="headerlink" href="#iterator-interface-synopsis" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-php notranslate"><div class="highlight"><pre><span></span><span class="x">interface Iterator extends Traversable {</span>
+<span class="x">/* Methods */</span>
+<span class="x">public current(): mixed  // Returns current element</span>
+<span class="x">public key(): mixed</span>
+<span class="x">public next(): void</span>
+<span class="x">public rewind(): void</span>
+<span class="x">public valid(): bool</span>
+<span class="x">}</span>
+</pre></div>
+</div>
+<p>Examples of <code class="docutils literal notranslate"><span class="pre">Iterator</span></code> uses:</p>
+<p><code class="docutils literal notranslate"><span class="pre">SplFileObject</span></code> implments the <code class="docutils literal notranslate"><span class="pre">Iterator</span></code> and can be usedin a <code class="docutils literal notranslate"><span class="pre">foreach</span></code> loop to iteratre over the lines of a file or rows of a CSV file. Other built-in PHP classes like <code class="docutils literal notranslate"><span class="pre">FilterIterator</span></code>, <code class="docutils literal notranslate"><span class="pre">RegexIterator</span></code> and so on  also implement <code class="docutils literal notranslate"><span class="pre">Iterator</span></code>, often by implementing a
+an interface derived from <code class="docutils literal notranslate"><span class="pre">Iterator</span></code>.</p>
+</div>
+<div class="section" id="explanation">
+<h4>Explanation<a class="headerlink" href="#explanation" title="Permalink to this headline">¶</a></h4>
+<p>The methods should be implemented so <code class="docutils literal notranslate"><span class="pre">current</span></code> returns the current element. <code class="docutils literal notranslate"><span class="pre">current()</span></code> is the PHP analogue of the dereference opertor of C++ stl-compliant iterator classes. <code class="docutils literal notranslate"><span class="pre">key()</span></code> returns the key of the current element. <code class="docutils literal notranslate"><span class="pre">next()</span></code> is analogous to a C++ iterator’s
+<code class="docutils literal notranslate"><span class="pre">iterator&amp;</span> <span class="pre">operator++()</span></code>.  <code class="docutils literal notranslate"><span class="pre">rewind()</span></code> resets the iterator to the first element in the collection, and <code class="docutils literal notranslate"><span class="pre">Iterator::valid():</span> <span class="pre">bool</span></code>, which is called immediately after <code class="docutils literal notranslate"><span class="pre">Iterator::rewind()</span></code> and <code class="docutils literal notranslate"><span class="pre">Iterator::next()</span></code>, check if the current position is valid, i.e., whether
+a <code class="docutils literal notranslate"><span class="pre">foreach</span></code> loop should end because is “past” the last element.</p>
+<p>A <code class="docutils literal notranslate"><span class="pre">foreach</span></code> loop invokes <code class="docutils literal notranslate"><span class="pre">Iterator</span></code> methods in this order:</p>
+<ol class="arabic simple">
+<li><p>Before the first iteration of the loop, Iterator::rewind() is called.</p></li>
+<li><p>Before each iteration of the loop, Iterator::valid() is called.</p></li>
+<li><p>If <code class="docutils literal notranslate"><span class="pre">Iterator::valid()</span></code> returns false, the loop is terminated; otherwise, it continues and <code class="docutils literal notranslate"><span class="pre">Iterator::valid()</span></code> and <code class="docutils literal notranslate"><span class="pre">Iterator::key()</span></code> are called.</p></li>
+<li><p>The loop body is evaluated.</p></li>
+<li><p>After each iteration of the loop, <code class="docutils literal notranslate"><span class="pre">Iterator::next()</span></code> is called and we go to step #2.</p></li>
+</ol>
+<p>This is roughly equivalent to:</p>
+<div class="highlight-php notranslate"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span>
+    <span class="nv">$it</span><span class="o">-&gt;</span><span class="na">rewind</span><span class="p">();</span>
+
+    <span class="k">while</span> <span class="p">(</span><span class="nv">$it</span><span class="o">-&gt;</span><span class="na">valid</span><span class="p">())</span> <span class="p">{</span>
+
+        <span class="nv">$key</span> <span class="o">=</span> <span class="nv">$it</span><span class="o">-&gt;</span><span class="na">key</span><span class="p">();</span>
+        <span class="nv">$value</span> <span class="o">=</span> <span class="nv">$it</span><span class="o">-&gt;</span><span class="na">current</span><span class="p">();</span>
+
+        <span class="c1">// ... foreach-body code here</span>
+
+        <span class="nv">$it</span><span class="o">-&gt;</span><span class="na">next</span><span class="p">();</span>
+    <span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="countable-iterface">
+<h3>Countable Iterface<a class="headerlink" href="#countable-iterface" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="json-serializable">
+<h3>JSON Serializable<a class="headerlink" href="#json-serializable" title="Permalink to this headline">¶</a></h3>
+</div>
+</div>
+<div class="section" id="ds-interfaces">
+<h2>Ds Interfaces<a class="headerlink" href="#ds-interfaces" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="collection-interface-synopsis">
+<h3><code class="docutils literal notranslate"><span class="pre">Collection</span></code> interface synopsis:<a class="headerlink" href="#collection-interface-synopsis" title="Permalink to this headline">¶</a></h3>
+<p>The Collection interface covers functionality common to all the data structures in this library. It guarantees that all structures are <em>traversable</em>, <em>countable</em>, and can be converted to json using <em>json_encode()</em>, and it thereby
+provides support for <em>foreach</em>, <em>echo</em>, <em>count</em>, <em>print_r</em>, <em>var_dump</em>, <em>serialize</em>, <em>json_encode</em>, and <em>clone</em>.</p>
+<div class="highlight-php notranslate"><div class="highlight"><pre><span></span><span class="x">class Ds\Collection implements Traversable, Countable, JsonSerializable {</span>
+<span class="x">    /* Methods */</span>
+<span class="x">    abstract public clear(): void</span>
+<span class="x">    abstract public copy(): Ds\Collection</span>
+<span class="x">    abstract public isEmpty(): bool</span>
+<span class="x">    abstract public toArray(): array</span>
+<span class="x">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="method-descriptions">
+<h3>Method Descriptions<a class="headerlink" href="#method-descriptions" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><p>DsCollection::clear — Removes all values
+DsCollection::copy — Returns a shallow copy of the collection
+DsCollection::isEmpty — Returns whether the collection is empty
+DsCollection::toArray — Converts the collection to an array</p>
+</div></blockquote>
+</div>
+<div class="section" id="example-code">
+<h3>Example Code<a class="headerlink" href="#example-code" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-php notranslate"><div class="highlight"><pre><span></span><span class="x">$collection_a = new \Ds\Vector([1, 2, 3]);</span>
+<span class="x">$collection_b = new \Ds\Vector();</span>
+
+<span class="x">  var_dump($collection_a, $collection_b);</span>
+<span class="x">   /*</span>
+<span class="x">       object(Ds\Vector)[1]</span>
+<span class="x">       public 0 =&gt; int 1</span>
+<span class="x">       public 1 =&gt; int 2</span>
+<span class="x">       public 2 =&gt; int 3</span>
+
+<span class="x">       object(Ds\Vector)[2]</span>
+<span class="x">   */</span>
+
+<span class="x">  //json_encode</span>
+<span class="x">  var_dump( json_encode($collection_a));</span>
+<span class="x">   /*</span>
+<span class="x">   string &#39;[1,2,3]</span>
+<span class="x">   */</span>
+
+<span class="x">   //count</span>
+<span class="x">  var_dump(count($collection_a));</span>
+<span class="x">   /*</span>
+<span class="x">   int 3</span>
+<span class="x">   */</span>
+
+<span class="x">   // serialize</span>
+<span class="x">   var_dump(serialize($collection_a));</span>
+<span class="x">   /*</span>
+<span class="x">   string &#39;C:9:&quot;Ds\Vector&quot;:12:{i:1;i:2;i:3;}&#39;</span>
+<span class="x">   */</span>
+
+<span class="x">   // foreach</span>
+<span class="x">   foreach ($collection_a as $key =&gt; $value) {</span>
+<span class="x">      echo $key ,&#39;--&#39;, $value, PHP_EOL;</span>
+<span class="x">   }</span>
+<span class="x">   /*</span>
+<span class="x">      0--1</span>
+<span class="x">      1--2</span>
+<span class="x">      2--3</span>
+<span class="x">    */</span>
+
+<span class="x">   // clone</span>
+<span class="x">   $clone = clone($collection_a);</span>
+<span class="x">   var_dump($clone);</span>
+<span class="x">   /*</span>
+<span class="x">     object(Ds\Vector)[1]</span>
+<span class="x">     public 0 =&gt; int 1</span>
+<span class="x">     public 1 =&gt; int 2</span>
+<span class="x">     public 2 =&gt; int 3</span>
+<span class="x">   */</span>
+
+<span class="x">   // push</span>
+<span class="x">   $clone-&gt;push(&#39;aa&#39;);</span>
+<span class="x">   var_dump($clone);</span>
+<span class="x">   /*</span>
+<span class="x">   object(Ds\Vector)[3]</span>
+<span class="x">     public 0 =&gt; int 1</span>
+<span class="x">     public 1 =&gt; int 2</span>
+<span class="x">     public 2 =&gt; int 3</span>
+<span class="x">     public 3 =&gt; string &#39;aa&#39; (length=2)</span>
+<span class="x">    */</span>
+
+<span class="x">  // isEmpty</span>
+<span class="x">  var_dump($collection_a-&gt;isEmpty(), $collection_b-&gt;isEmpty());</span>
+<span class="x">   /*</span>
+<span class="x">   boolean false</span>
+<span class="x">   boolean true</span>
+<span class="x">    */</span>
+
+<span class="x">  // toArray</span>
+<span class="x">  var_dump($collection_a-&gt;toArray(), $collection_b-&gt;toArray());</span>
+<span class="x">   /*</span>
+<span class="x">    array (size=3)</span>
+<span class="x">     0 =&gt; int 1</span>
+<span class="x">     1 =&gt; int 2</span>
+<span class="x">     2 =&gt; int 3</span>
+
+<span class="x">   array (size=0)</span>
+<span class="x">     empty</span>
+<span class="x">   */</span>
+
+<span class="x">  // copy ( void )</span>
+<span class="x">  //浅拷贝， shallow copy</span>
+<span class="x">  $collection_c = $collection_a-&gt;copy();</span>
+
+<span class="x">  var_dump($collection_c);</span>
+<span class="x">   /*</span>
+<span class="x">   object(Ds\Vector)[3]</span>
+<span class="x">     public 0 =&gt; int 1</span>
+<span class="x">     public 1 =&gt; int 2</span>
+<span class="x">     public 2 =&gt; int 3</span>
+<span class="x">   */</span>
+
+<span class="x">  $collection_c-&gt;push(4);</span>
+<span class="x">  var_dump($collection_a, $collection_c);</span>
+<span class="x">   /*</span>
+<span class="x">   object(Ds\Vector)[1]</span>
+<span class="x">     public 0 =&gt; int 1</span>
+<span class="x">     public 1 =&gt; int 2</span>
+<span class="x">     public 2 =&gt; int 3</span>
+
+<span class="x">   object(Ds\Vector)[3]</span>
+<span class="x">     public 0 =&gt; int 1</span>
+<span class="x">     public 1 =&gt; int 2</span>
+<span class="x">     public 2 =&gt; int 3</span>
+<span class="x">     public 3 =&gt; int 4</span>
+<span class="x">   */</span>
+
+<span class="x">   // clear</span>
+<span class="x">   $collection_a-&gt;clear();</span>
+<span class="x">   $collection_b-&gt;clear();</span>
+<span class="x">   $collection_c-&gt;clear();</span>
+
+<span class="x">   var_dump($collection_a, $collection_b, $collection_c);</span>
+<span class="x">   /*</span>
+<span class="x">   object(Ds\Vector)[1]</span>
+<span class="x">   object(Ds\Vector)[2]</span>
+<span class="x">   object(Ds\Vector)[3]</span>
+<span class="x">   */</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">PHP Data Structures Extension</a><ul>
+<li><a class="reference internal" href="#introduction">Introduction</a></li>
+<li><a class="reference internal" href="#important-comment-on-installation">Important Comment on Installation</a></li>
+<li><a class="reference internal" href="#summary-of-built-ndash-in-php-interfaces">Summary of Built&amp;ndash;in PHP Interfaces</a><ul>
+<li><a class="reference internal" href="#traversable-interface">Traversable Interface</a></li>
+<li><a class="reference internal" href="#iterator-interface">Iterator Interface</a><ul>
+<li><a class="reference internal" href="#iterator-interface-synopsis">Iterator Interface synopsis</a></li>
+<li><a class="reference internal" href="#explanation">Explanation</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#countable-iterface">Countable Iterface</a></li>
+<li><a class="reference internal" href="#json-serializable">JSON Serializable</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#ds-interfaces">Ds Interfaces</a><ul>
+<li><a class="reference internal" href="#collection-interface-synopsis"><code class="docutils literal notranslate"><span class="pre">Collection</span></code> interface synopsis:</a></li>
+<li><a class="reference internal" href="#method-descriptions">Method Descriptions</a></li>
+<li><a class="reference internal" href="#example-code">Example Code</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="../index.html"
+                        title="previous chapter">Welcome to PHP Ds Data Structures Extension’s documentation!</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/notes/ds.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../index.html" title="Welcome to PHP Ds Data Structures Extension’s documentation!"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">PHP Ds Data Structures Extension 1.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">PHP Data Structures Extension</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2021, Kurt Krueckeberg.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.5.4.
+    </div>
+  </body>
+</html>
