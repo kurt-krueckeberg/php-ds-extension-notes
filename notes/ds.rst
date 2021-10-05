@@ -7,7 +7,20 @@ PHP Data Structures Extension
 Introduction
 ------------
 
-The `PHP 7 Data Structures Extension <https://www.php.net/manual/en/book.ds.php>`_  provides classical data structures for use in PHP. It is more flexible and efficient than PHP's one-fize-fits-all ``array``.
+The `Data Structures Extension <https://www.php.net/manual/en/book.ds.php>`_ for PHP 7 provides classical data structures for use in PHP. The contains the container classes  *Vector*, *Deque*, *Map*, *Set*, *Stack*, *Queue*, *PriorityQueue* and *Pair* 
+
+Create class and interface grarphic--inheritance and implements.
+
+    class Ds\Vector implements Ds\Sequence, ArrayAccess { ...} 
+    class Ds\Deque implements Ds\Sequence, ArrayAccess {
+    class Ds\Map implements Ds\Collection, ArrayAccess {
+    class Ds\Pair implements JsonSerializable {
+    class Ds\Set implements Ds\Collection, ArrayAccess {
+    class Ds\Stack implements Ds\Collection, ArrayAccess {
+       class Ds\Queue implements Ds\Collection, ArrayAccess {
+
+    
+ It is more flexible and efficient than PHP's one-fize-fits-all ``array``.
 `Efficient Data Structures for PHP <https://medium.com/@rtheunissen/efficient-data-structures-for-php-7-9dda7af674cd>`_ explains its classes *Vector*, *Deque*, *Map*, *Set*, *Stack*, *Queue*, *PriorityQueue* and *Pair* and their implemented interfaces\ |mdash|\ *Collection*, *Hashable* and *Sequence*.
 
 See also:
@@ -15,7 +28,7 @@ See also:
 * This `Reddit thread <https://www.reddit.com/r/PHP/comments/b6ffs5/who_here_uses_ds_data_structures_and_for_which/>`_.
 * The answers to questions at the end of the **Ds** github repository `README <https://github.com/php-ds/ext-ds>`_.
 
-I believe **polyfill** is a `related extension <https://github.com/php-ds/polyfill>`_. 
+The `polyfill <https://github.com/php-ds/polyfill>`_ repository provides IDE integration. It can also be installed using Composer.
 
 Important Comment on Installation
 ---------------------------------
